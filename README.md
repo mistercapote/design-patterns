@@ -69,3 +69,22 @@ as demais classes e funções na ordem correta.
 
 3. Atualmente os canais (WEB, MOBILE) são registrados escrevendo as chamadas da função diretamente no código-fonte.  Uma decisão de projeto que poderia ser diferente é o registro estático (hardcoded) das fábricas de canais diretamente no código-fonte. Como alternativa, o sistema poderia ser adaptado para ler a lista de canais disponíveis a partir de um arquivo de configuração externo (como um arquivo JSON ou .env) durante a sua inicialização. A consequência direta dessa mudança seria um aumento significativo na flexibilidade da arquitetura, permitindo a adição de novos canais (como o KIOSK) apenas inserindo uma linha nesse arquivo externo, sem a necessidade de um desenvolvedor abrir e alterar o código-fonte original da aplicação.
 
+### 7 Testes e alterações
+
+1.  `test_double_config` 
+    * Gerar dois AppConfig resulta  em uma única instância
+    
+    * Se as instâncias forem idênticas, o teste passa silenciosamente
+    e a função não retorna nada
+    
+    * Se o sistema permitisse instâncias diferentes, teríamos inconsistências 
+    graves, pois cada módulo poderia estar a usar parâmetros e variáveis 
+    distintas, gerando conflitos e erros imprevisíveis
+2. `test_builder_empty_list`
+    * Criação de um pedido fornecendo apenas o atributo obrigatório (cliente), sem adicionar produtos.
+    *O resultado esperado deve ser o ValueError O pedido deve conter pelo menos um produto.
+    * Previne erros de execução (como TypeError) caso outras partes do sistema tentem iterar sobre os produtos de um pedido recém-criado ou vazio
+3. `test_different_kiosk_factory_checkout_instances` 
+    * Criação de múltiplos objetos Checkout pela mesma fábrica.
+    * Cada chamada retorna uma instância completamente diferente e independente na memória
+    * Garante o isolamento dos dados, evitando que transações simultâneas de clientes diferentes se misturem e causem falhas no controle das compras.
