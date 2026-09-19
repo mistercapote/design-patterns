@@ -38,6 +38,8 @@ class OrderBuilder:
     def build(self) -> Order:
         if not self._customer:
             raise ValueError("Não é possível construir um pedido sem cliente.")
+        if not self.products:
+            raise ValueError("O pedido deve conter pelo menos um produto.")
 
         return Order(
             customer=self._customer,
