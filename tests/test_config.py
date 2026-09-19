@@ -33,12 +33,8 @@ def test_preservacao_de_valores_ao_reobter():
     assert config2.debug is True, "O atributo 'debug' deve manter o estado previamente alterado."
 
 
-# def executar_todos_os_testes():
-#     test_mesma_instancia()
-#     test_propagacao_de_alteracoes()
-#     test_preservacao_de_valores_ao_reobter()
-#     print("Todos os testes passaram com sucesso!")
-
-
-# if __name__ == "__main__":
-#     executar_todos_os_testes()
+if __name__ == "__main__":
+    test_mesma_instancia()
+    test_propagacao_de_alteracoes()
+    test_preservacao_de_valores_ao_reobter()
+    print("Todos os testes passaram com sucesso!")

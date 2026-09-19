@@ -21,3 +21,8 @@ def test_forma_de_pagamento_registada_no_pedido():
     assert order_pix.payment_method == "PIX"
     assert order_boleto.payment_method == "BOLETO"
 
+
+if __name__ == "__main__":
+    test_processamento_com_duas_formas_diferentes()
+    test_forma_de_pagamento_registada_no_pedido()
+    print("Testes da Questão 03 (Factory Method) passaram com sucesso!")
