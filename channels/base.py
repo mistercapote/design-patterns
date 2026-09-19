@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-# Questao 05
+# Questao 04
 
 class Checkout(ABC):
     @abstractmethod
