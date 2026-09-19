@@ -62,3 +62,10 @@ as demais classes e funções na ordem correta.
 - Payment (e filhas como PixPayment): Executam a ação específica daquela forma de pagamento.
 
 - Checkout e Notification (e suas filhas): Isolam a lógica visual ou de envio de mensagens de cada canal.
+
+2.  Focando em `OrderBuilder` e `ÀppConfig `OrderBuilder`: Se a regra de negócio mudar e o sistema passar a exigir, por exemplo, que "endereço" vire um atributo obrigatório para fechar a compra, a validação essa validação apenas dentro do método .build() do OrderBuilder.  O `OrderService` ou as factorys continuariam funcionando sem nem precisar saber dessa nova regra. 
+- `AppConfig`: Se no futuro o sistema precisar de uma variável nova, como a URL de um banco de dados ou um limite de tentativas, você adiciona isso diretamente no AppConfig. O resto do sistema (OrderService, etc.) não precisará sofrer nenhuma alteração. 
+ - `PixPayment`: Se a APi do banco passar a exigir um novo parâmetro de autenticação exclusivo para o PIX, essa mudança será feita direaframente no `PixPayment`, não afetando `PaymentProcessor` nem `OrderService
+
+3. Atualmente os canais (WEB, MOBILE) são registrados escrevendo as chamadas da função diretamente no código-fonte.  Uma decisão de projeto que poderia ser diferente é o registro estático (hardcoded) das fábricas de canais diretamente no código-fonte. Como alternativa, o sistema poderia ser adaptado para ler a lista de canais disponíveis a partir de um arquivo de configuração externo (como um arquivo JSON ou .env) durante a sua inicialização. A consequência direta dessa mudança seria um aumento significativo na flexibilidade da arquitetura, permitindo a adição de novos canais (como o KIOSK) apenas inserindo uma linha nesse arquivo externo, sem a necessidade de um desenvolvedor abrir e alterar o código-fonte original da aplicação.
+
