@@ -16,7 +16,7 @@ Design Patterns — Atividade Avaliativa de Engenharia de Software
   
   
 ### 3. Pagamento e Factory Method
-1. - Creator: `PaymentProcessor`. 
+1.  - Creator: `PaymentProcessor`. 
     - Concrete Creator: `PixProcessor`, `CreditCardProcessor` e `BoletoProcessor`. 
     - Product: `Payment`.   
     - Concrete Product: `PixPayment`, `CreditCardPayment` e `BoletoPayment`.
@@ -24,3 +24,18 @@ Design Patterns — Atividade Avaliativa de Engenharia de Software
 2. Uma cadeia de if/elif caracteriza apenas uma fábrica simples. O padrão Factory Method fundamenta-se em polimorfismo e herança: a classe base define a operação com um método abstrato de criação e as subclasses decidem qual classe concreta instanciar.   
 
 3. Nenhuma classe existente precisa de ser alterada. Apenas se estende o sistema criando uma nova subclasse de Payment e uma nova subclasse de PaymentProcessor, cumprindo o princípio Open/Close do SOLID.  
+
+
+### 4. Famílias por canal
+
+1. Porque ambos variam juntos em função do contexto do canal de venda (WEB, MOBILE ou KIOSK), exigindo interfaces e comportamentos correspondentes e coerentes entre si na mesma plataforma.   
+
+2. Garante a criação de objetos compatíveis de uma mesma família sem misturar implementações.
+
+3. Porque canal e forma de pagamento variam de forma independente. Acoplar o pagamento à fábrica do canal violaria o princípio de responsabilidade única (SRP).   
+
+### 5. Seleção de fábrica e alteração do sistema
+
+1.  - Arquivos criados: `channels/kiosk.py`, contendo `KioskCheckout`, `KioskNotification` e `KioskFactory`. Nenhum ficheiro do sistema foi alterado.   
+
+2. São compatíveis com o OCP porque o sistema foi estendido com novas classes sem modificar o código de get_channel_factory, das abstrações base ou dos canais existentes, permanecendo fechado para alteração e aberto para extensão
