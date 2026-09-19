@@ -39,3 +39,26 @@ Design Patterns — Atividade Avaliativa de Engenharia de Software
 1.  - Arquivos criados: `channels/kiosk.py`, contendo `KioskCheckout`, `KioskNotification` e `KioskFactory`. Nenhum ficheiro do sistema foi alterado.   
 
 2. São compatíveis com o OCP porque o sistema foi estendido com novas classes sem modificar o código de get_channel_factory, das abstrações base ou dos canais existentes, permanecendo fechado para alteração e aberto para extensão
+
+### 6. Responsabilidades e integração
+
+1. A classe coordenadora `OrderService` tem como responsabilidade principal apenas orquestrar o fluxo, chamando
+as demais classes e funções na ordem correta.
+
+- AppConfig: Armazenar as informações do ambiente e garantir o acesso a uma única instância global compartilhada.   
+
+- OrderBuilder: Isolar a complexidade de criar os pedidos passo a passo, lidando com a validação de atributos obrigatórios e a adição de opcionais.   
+
+- OrderService: Orquestrar o fluxo principal (construção, checkout, pagamento, notificação) delegando a execução aos componentes adequados, sem acoplar-se a implementações concretas
+
+- PaymentProcessor: Ele atua como o componente base que define o fluxo padrão de cobrança, delegando a criação da forma de pagamento exata para as subclasses. A responsabilidade dele é isolar a lógica de processamento, garantindo que o sistema não precise saber os detalhes concretos de como o PIX ou o Cartão são instanciados.
+
+- get_channel_factory: selecionar e retornar qual factory deve ser usada para o canal informado.
+
+- Channel Factory (e suas filhas): Elas agrupam a criação do checkout e da notificação, garantindo que os objetos criados pertençam à mesma família (ou seja, evita que o sistema misture um checkout WEB com uma notificação MOBILE, por exemplo).
+
+- Order e Product: Guardam os dados essenciais e as regras básicas do negócio (como somar o total).
+
+- Payment (e filhas como PixPayment): Executam a ação específica daquela forma de pagamento.
+
+- Checkout e Notification (e suas filhas): Isolam a lógica visual ou de envio de mensagens de cada canal.
