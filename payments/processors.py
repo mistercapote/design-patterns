@@ -15,3 +15,10 @@ class BoletoProcessor(PaymentProcessor):
     def create_payment(self) -> Payment:
         return BoletoPayment()
 
+
+# Questão 8
+
+class DebitCardProcessor(PaymentProcessor):
+    def create_payment(self) -> Payment:
+        return DebitCardPayment()
+

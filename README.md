@@ -88,3 +88,15 @@ as demais classes e funções na ordem correta.
     * Criação de múltiplos objetos Checkout pela mesma fábrica.
     * Cada chamada retorna uma instância completamente diferente e independente na memória
     * Garante o isolamento dos dados, evitando que transações simultâneas de clientes diferentes se misturem e causem falhas no controle das compras.
+
+### 8 Situação de mudança
+
+Nova forma de pagamento escolhida: Cartão de Débito
+
+1. Os arquivos modificados foram: `payments/methods.py` e `payments/processors.py`
+
+2. O fluxo principal não precisou ser alterado
+
+3.  Nenhuma classse existente precisou ser alterada.
+
+4. Com o Factory Method, há um classe abstrata de Payment Processor e para cadaforma de pagamento nova (como Cartão de Débito), basta apenas herdar dessa classe, sem afetar a responsabilidade dos demais componentes. O sistema está aberto para expansão e fechado para modificação.

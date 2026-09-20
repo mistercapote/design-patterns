@@ -14,3 +14,13 @@ class BoletoPayment(Payment):
     def pay(self, amount: float) -> str:
         return "BOLETO"
 
+
+# Questão 8
+class DebitCardPayment(Payment):
+    def pay(self, amount: float) -> str:
+        return "DEBIT_CARD"
+
+
+
+
+
