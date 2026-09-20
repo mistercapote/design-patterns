@@ -45,3 +45,10 @@ def test_different_kiosk_factory_checkout_instances():
     checkout2 = factory.create_checkout()
 
     assert checkout1 is not checkout2, 'Checkout diferentes são instâncias diferentes'
+
+
+if __name__ == "__main__":
+    test_double_config()
+    test_builder_empty_product_list()
+    test_different_kiosk_factory_checkout_instances()
+    print("Todos os testes do Builder passaram com sucesso!")
