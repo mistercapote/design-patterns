@@ -2,25 +2,6 @@
 Design Patterns — Atividade Avaliativa de Engenharia de Software
 Dupla: Jaime Willian Carneiro da Silva e Luiz Eduardo Bravin
 
-### Organização e Estrutura dos Módulos
-A estrutura do projeto foi desenhada seguindo o princípio da Separação de Responsabilidades (SRP) e conceitos de arquitetura modular, visando baixo acoplamento e facilidade de extensão (Princípio Aberto/Fechado - OCP):
-
-- `channels/` (Canais de Entrada/Atendimento): Isola as diferentes interfaces de interação com o usuário (`kiosk.py`, `mobile.py`, `web.py`). A utilização de um arquivo `base.py` define os contratos/interfaces comuns, enquanto o `registry.py` permite o desacoplamento e o registro dinâmico de novos canais sem alterar o código existente.
-
-- `payments/` (Processamento de Pagamentos): Centraliza as regras financeiras e formas de pagamento (methods.py, processors.py). O base.py padroniza a interface dos métodos, permitindo plugar novos meios de cobrança com facilidade.
-
-- `domain/` e `services/`: Reservados para as entidades centrais do negócio e a orquestração dos fluxos de regras, garantindo que a lógica principal não dependa de canais ou meios de pagamento específicos.
-
-- `config/` e `tests/`: Mantêm configurações globais e testes automatizados isolados da lógica de produção.
-
-- `main.py`: Responsável por inicializar e integrar os componentes.
-
-- `tests.py`: Responsavel por executar todos os teste.
-
-
-Essa divisão modular torna o sistema facilmente escalável, legível e simplifica a escrita de testes unitários.
-
-
 
 ### 1. Configuração da aplicação
 1. O Python invoca __init__ automaticamente sempre que __new__ devolve uma instância da classe. Como o __new__ devolve a mesma instância em chamadas subsequentes, o __init__ é executado novamente.
@@ -121,3 +102,18 @@ Nova forma de pagamento escolhida: Cartão de Débito
 3.  Nenhuma classse existente precisou ser alterada.
 
 4. Com o Factory Method, há um classe abstrata de Payment Processor e para cadaforma de pagamento nova (como Cartão de Débito), basta apenas herdar dessa classe, sem afetar a responsabilidade dos demais componentes. O sistema está aberto para expansão e fechado para modificação.
+
+
+### 9 Organização e Estrutura dos Módulos
+A estrutura do projeto adota uma arquitetura modular baseada nos princípios de Responsabilidade Única (SRP) e Aberto/Fechado (OCP) para garantir baixo acoplamento e alta coesão. O objetivo central é isolar as regras de negócio do domínio de detalhes de infraestrutura, garantindo que o núcleo do sistema não dependa de canais de atendimento ou métodos de pagamento específicos.
+
+Para viabilizar isso, as responsabilidades foram distribuídas da seguinte forma:
+
+* **`channels/`**: Isola as interfaces de interação com o usuário, permitindo o registro dinâmico de novos canais sem alterar o código existente.
+* **`payments/`**: Centraliza as regras financeiras e padroniza contratos, facilitando a adição de novos meios de cobrança.
+* **`domain/`**: Concentra as entidades centrais do negócio, mantendo a regra principal isolada e independente de tecnologias externas.
+* **`services/`**: Foca na orquestração dos fluxos da aplicação, coordenando a comunicação entre o domínio e as demais integrações.
+* **`config/`**: Mantém as configurações globais do sistema separadas da lógica de produção.
+* **`tests/`**: Agrupa os arquivos e cenários de testes automatizados, mantendo-os fora do código de produção.
+* **`main.py`**: Atua estritamente como o ponto de entrada para inicializar e orquestrar a integração dos componentes do sistema.
+* **`tests.py`**: Serve como o executável central responsável exclusivamente por acionar as baterias de testes.
