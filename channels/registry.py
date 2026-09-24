@@ -2,10 +2,10 @@ from typing import Type
 from channels.base import ChannelFactory
 from channels.web import WebFactory
 from channels.mobile import MobileFactory
+from channels.kiosk import KioskFactory
 
 # Questão 05
 
-# Dicionário interno de fábricas registradas
 _CHANNEL_REGISTRY: dict[str, Type[ChannelFactory]] = {}
 
 
@@ -25,6 +25,6 @@ def get_channel_factory(channel: str) -> ChannelFactory:
     return factory_cls()
 
 
-# Registro inicial exigido pelo enunciado
 register_channel_factory("WEB", WebFactory)
 register_channel_factory("MOBILE", MobileFactory)
+register_channel_factory("KIOSK", KioskFactory)
